@@ -6,7 +6,8 @@ Using web.py, and horrible encapsulation
 """
 
 import web
-import csv, random
+import csv
+from random import randint
 
 ### URL Mapping
 
@@ -24,10 +25,6 @@ app = web.application(urls, globals())
 
 ### Templates
 render = web.template.render('templates', base='base')
-
-### QuoteBox Info
-with open('quoteCount.txt', 'r') as quoteCount:
-    quotes = 
 
 class index:
    def GET(self):
@@ -49,10 +46,11 @@ class random:
     def GET(self):
         with open('quotes.csv', 'r') as csvQuotes:
             csvReader = csv.reader(csvQuotes, delimiter=",")
-            for i, row in enumerate(csvReader)
+            randQuoteN = -1
+            for i, row in enumerate(csvReader):
 		if i == 1:
-                    quotesNumber = row[3]
-                    randQuoteN = random.randint(2, quotesNumber)
+                    quotesNumber = int(row[3])
+                    randQuoteN = randint(2, quotesNumber + 2)
                 elif i == randQuoteN:
                     return "[" + str(row[0]) + "] " + row[1] + ": " + row[2] 
 
@@ -62,8 +60,7 @@ class quotes:
 
 class add:
     def POST(self):
-        i = web.input()
-        n = 
+        pass
 
 if __name__ == "__main__":
     app.run()
