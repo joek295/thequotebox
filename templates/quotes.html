@@ -1,0 +1,27 @@
+$def with (id)
+$var title: $("thequotebox - " + id + " - quotes")
+$code:
+    quoteList = []
+    if int(id) < 1:
+        n = 1
+    n = (-1 + int(id))*10 + 1
+    while n%10 > 0:
+        quoteList.append(getQuote(n))
+        n += 1
+    quoteList.append(getQuote(n+1))
+
+<center>
+<div id="quotes">
+$for quo in quoteList:
+        <p>$quo</p> 
+</div>
+
+<p>
+$if int(id) == 1:
+    <a href="../">home</a> | <a href="2">next</a>
+$else:
+    <a href="$(int(id) - 1)">prev</a> | <a href="../">home</a> | <a href="$(int(id) + 1)">next</a>
+</p>    
+</center>
+
+ 
