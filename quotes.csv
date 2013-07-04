@@ -1,4 +1,5 @@
-timestamp,perpetrator,quote,quoteNumber
-012345679,"admin","quote number",2
-12345699,"Niall","Test"
-21323445,"Joe","tests"
+timestamp,perpetrator,quote
+1372878413.3,Niall,0
+1372878421.15,Niall,1
+1372940882.55,Niall,test
+1372941108.88,Niall,"""i'm using quotes"""
