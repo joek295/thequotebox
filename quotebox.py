@@ -17,7 +17,7 @@ urls = (
     '/random', 'random',
     '/admin', 'admin',
     '/about', 'about',
-    '/quotes', 'quotes',
+    '/quotes/(\d+)', 'quotes',
     '/quote/(\d+)', 'quote',
     '/add', 'add'
 )
@@ -28,8 +28,16 @@ addForm = form.Form(
 )
 app = web.application(urls, globals())
 
+def getQuote(n):
+    with open('quotes.csv', 'r') as csvQuotes:
+            csvReader = csv.reader(csvQuotes, delimiter=",")
+            quoteToGet = n
+            for i, row in enumerate(csvReader):
+                if i == quoteToGet:
+                    return "[" + str(n) + "] " + row[1] + ": " + row[2]
+
 ### Templates
-render = web.template.render('templates', base='base')
+render = web.template.render('templates', base='base', globals={'getQuote': getQuote})
 
 class index:
    def GET(self):
@@ -52,8 +60,8 @@ class random:
         return randomQuote() 
 
 class quotes:
-    def GET(self):
-        pass
+    def GET(self, id):
+        return render.quotes(id)
 
 class add:
     def GET(self):
@@ -68,14 +76,6 @@ class add:
         else: 
             addQuote(form.d.Perpetrator, form.d.Quote)
             return "Quote Added!"
-
-def getQuote(n):
-    with open('quotes.csv', 'r') as csvQuotes:
-            csvReader = csv.reader(csvQuotes, delimiter=",")
-            quoteToGet = n
-            for i, row in enumerate(csvReader):
-                if i == quoteToGet:
-                    return "[" + str(n) + "] " + row[1] + ": " + row[2]
 
 def randomQuote():
     randQuoteN = -1
@@ -95,6 +95,7 @@ def addQuote(perpetrator, quote):
     with open('quoteCount.txt', 'wb') as quoteWriter:
         quoteWriter.seek(0)
         quoteWriter.write(str(newQuoteCount))
+
 
 
 if __name__ == "__main__":
