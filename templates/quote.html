@@ -1,0 +1,20 @@
+$def with (id)
+$var title: $("thequotebox - " + "random")
+$code:
+    if int(id) < 1:
+        id = 1
+    quot = getQuote(int(id))
+<div>
+<p id="quote">$('"' + quot[2] + '"')</br>$("~" + quot[1])</p>
+</div>
+
+<center>
+<p>
+$if int(id) == 1:
+    <a href="/">home</a> | <a href="/quote/$(int(id) + 1)">next</a>
+$else:
+    <a href="/quote/$(int(id) - 1)">prev</a> | <a href="/">home</a> | <a href="/quote/$(int(id) + 1)">next</a>    
+</p>    
+</center>
+
+ 

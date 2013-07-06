@@ -34,10 +34,15 @@ def getQuote(n):
             quoteToGet = n
             for i, row in enumerate(csvReader):
                 if i == quoteToGet:
-                    return "[" + str(n) + "] " + row[1] + ": " + row[2]
+                    return [str(n),row[1],row[2]]
+def randomQuote():
+    randQuoteN = -1
+    quotesNumber = quoteCount()
+    randQuoteN = randint(1, quotesNumber)
+    return getQuote(randQuoteN)
 
 ### Templates
-render = web.template.render('templates', base='base', globals={'getQuote': getQuote})
+render = web.template.render('templates', base='base', globals={'getQuote': getQuote, 'randomQuote': randomQuote})
 
 class index:
    def GET(self):
@@ -53,11 +58,11 @@ class admin:
 
 class quote:
    def GET(self, id):
-       return getQuote(int(id))
+       return render.quote(id)
 
 class random:
     def GET(self):
-        return randomQuote() 
+        return render.random(self) 
 
 class quotes:
     def GET(self, id):
@@ -65,23 +70,15 @@ class quotes:
 
 class add:
     def GET(self):
-        #addQuote("Niall", str(quoteCount()))
-        #return "Added!"
         form = addForm()
-        return render.add(form)
+        return render.add(form,0)
     def POST(self):
         form = addForm()
         if not form.validates():
-            return render.new(addForm)
+            return render.add(addForm)
         else: 
             addQuote(form.d.Perpetrator, form.d.Quote)
-            return "Quote Added!"
-
-def randomQuote():
-    randQuoteN = -1
-    quotesNumber = quoteCount()
-    randQuoteN = randint(1, quotesNumber)
-    return getQuote(randQuoteN)
+            return render.add(addForm,1)
 
 def quoteCount():
     with open('quoteCount.txt', 'r') as quoteReader:

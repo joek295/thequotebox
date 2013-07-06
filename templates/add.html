@@ -1,7 +1,15 @@
-$def with (form)
+$def with (form, id)
 
+<center>
+$if id == 1:
+    <p>Quote Added!</p>
 <form name="main" method="post">
 $if not form.valid: <p class="error">Try again.</p>
 $:form.render()
-<input type="submit" />
 </form>
+
+<a href="/">home</a>
+
+</center>
+
+

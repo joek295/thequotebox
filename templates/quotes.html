@@ -1,16 +1,23 @@
 $def with (id)
 $var title: $("thequotebox - " + id + " - quotes")
+
+<center>
 $code:
     quoteList = []
     if int(id) < 1:
         n = 1
     n = (-1 + int(id))*10 + 1
     while n%10 > 0:
-        quoteList.append(getQuote(n))
+        quot = getQuote(n)
+        if not quot:
+            break
+        else:
+            quoteList.append("[" + quot[0] + "] " + quot[1] + ": " + quot[2])
         n += 1
-    quoteList.append(getQuote(n+1))
+    quot = getQuote(n)
+    if quot:
+        quoteList.append("[" + quot[0] + "] " + quot[1] + ": " + quot[2])
 
-<center>
 <div id="quotes">
 $for quo in quoteList:
         <p>$quo</p> 
