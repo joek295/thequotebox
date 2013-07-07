@@ -1,4 +1,5 @@
 """
+thequotebox-0.1
 Functions for handling the quotes, essentially the backend of the operation
 """
 
@@ -27,7 +28,7 @@ def addQuote(perpetrator, quote):
     with open('quotes/quotes.csv', 'a') as csvQuotes:
         csvWriter = csv.writer(csvQuotes, delimiter=",")
         csvWriter.writerow([str(time.time()), perpetrator, quote])
-    with open('quoteCount.txt', 'wb') as quoteWriter:
+    with open('quotes/quoteCount.txt', 'wb') as quoteWriter:
         quoteWriter.seek(0)
         quoteWriter.write(str(newQuoteCount))
 
