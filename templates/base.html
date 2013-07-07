@@ -1,18 +1,19 @@
 $def with (page)
 
 <html>
+<!-- I am fully aware that my web design is shitty, it took 15 minutes to do. -->
 <head>
     $if page.has_key('title'):
         <title>$page.title</title>
     $else:
-        <title>Untitled</title>
-    <style>
-    </style>
+        <title>thequotebox</title>
+<link rel="stylesheet" type="text/css" href="/static/stylesheet.css">
 </head>
 
 <body>
 
-$:page
-
+<div class="header">thequotebox</div>
+<p><div class="page">$:page</div></p>
+<center><a href="http://github.com/nm523/thequotebox">github</a></center>
 </body>
 </html>

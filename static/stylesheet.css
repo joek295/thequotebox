@@ -1,0 +1,36 @@
+body {
+background-color: #6699FF;
+}
+
+.header {
+margin-left: auto;
+margin-right: auto;
+border: dotted;
+text-align: center;
+font-size: 200%;
+}
+.footer {
+margin-left: auto;
+margin-right: auto;
+position: absolute;
+border: dotted;
+float: clear;
+}
+
+.page {
+margin-left: auto;
+margin-right: auto;
+border: dotted;
+float: clear;
+}
+
+#quote {
+font-size: 200%;
+text-align: center;
+}
+
+#quotes {
+margin-left: 37%;
+margin-right: 37%;
+text-align: left;
+}

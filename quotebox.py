@@ -1,67 +1,35 @@
 """
-The QuoteBox - ver 0.0
-URL: https://github.com/nm523/thequotebox.git
-
-Using web.py, and horrible encapsulation
+thequotebox-0.1
+Functions for handling the quotes, essentially the backend of the operation
 """
 
-import web
-import csv
+import csv, time
 from random import randint
 
-### URL Mapping
-
-urls = (
-    '/', 'index',
-    '/random', 'random',
-    '/admin', 'admin',
-    '/about', 'about',
-    '/quotes', 'quotes'
-    '/quote/(\d+)', 'quote'
-    '/add', 'add'
-)
-
-app = web.application(urls, globals())
-
-### Templates
-render = web.template.render('templates', base='base')
-
-class index:
-   def GET(self):
-       return render.index(pages)
-
-class about:
-   def GET(self):
-       pass
-
-class admin:
-    def GET(self):
-        pass
-
-class quote:
-   def GET(self):
-       pass
-
-class random:
-    def GET(self):
-        with open('quotes.csv', 'r') as csvQuotes:
+def getQuote(n):
+    with open('quotes/quotes.csv', 'r') as csvQuotes:
             csvReader = csv.reader(csvQuotes, delimiter=",")
-            randQuoteN = -1
+            quoteToGet = n
             for i, row in enumerate(csvReader):
-		if i == 1:
-                    quotesNumber = int(row[3])
-                    randQuoteN = randint(2, quotesNumber + 2)
-                elif i == randQuoteN:
-                    return "[" + str(row[0]) + "] " + row[1] + ": " + row[2] 
+                if i == quoteToGet:
+                    return [str(n),row[1],row[2]]
+def randomQuote():
+    randQuoteN = -1
+    quotesNumber = quoteCount()
+    randQuoteN = randint(1, quotesNumber)
+    return getQuote(randQuoteN)
 
-class quotes:
-    def GET(self):
-        pass
+def quoteCount():
+    with open('quotes/quoteCount.txt', 'r') as quoteReader:
+        return int(quoteReader.read())
 
-class add:
-    def POST(self):
-        pass
+def addQuote(perpetrator, quote):
+    newQuoteCount = quoteCount() + 1
+    with open('quotes/quotes.csv', 'a') as csvQuotes:
+        csvWriter = csv.writer(csvQuotes, delimiter=",")
+        csvWriter.writerow([str(time.time()), perpetrator, quote])
+    with open('quotes/quoteCount.txt', 'wb') as quoteWriter:
+        quoteWriter.seek(0)
+        quoteWriter.write(str(newQuoteCount))
 
-if __name__ == "__main__":
-    app.run()
-       
+

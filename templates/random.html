@@ -1,0 +1,16 @@
+$def with (id)
+$var title: $("thequotebox - " + "random")
+$code:
+    quot = randomQuote()
+
+<div>
+<p id="quote">$('"' + quot[2] + '"')</br>$("~" + quot[1])</p>
+</div>
+
+<center>
+<p>
+<a href="../quote/$quot[0]">permalink</a> | <a href="../">home</a> | <a href="javascript:history.go(0)">next</a>
+</p>    
+</center>
+
+ 
