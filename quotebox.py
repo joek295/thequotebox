@@ -6,7 +6,7 @@ import csv, time
 from random import randint
 
 def getQuote(n):
-    with open('quotes.csv', 'r') as csvQuotes:
+    with open('quotes/quotes.csv', 'r') as csvQuotes:
             csvReader = csv.reader(csvQuotes, delimiter=",")
             quoteToGet = n
             for i, row in enumerate(csvReader):
@@ -19,12 +19,12 @@ def randomQuote():
     return getQuote(randQuoteN)
 
 def quoteCount():
-    with open('quoteCount.txt', 'r') as quoteReader:
+    with open('quotes/quoteCount.txt', 'r') as quoteReader:
         return int(quoteReader.read())
 
 def addQuote(perpetrator, quote):
     newQuoteCount = quoteCount() + 1
-    with open('quotes.csv', 'a') as csvQuotes:
+    with open('quotes/quotes.csv', 'a') as csvQuotes:
         csvWriter = csv.writer(csvQuotes, delimiter=",")
         csvWriter.writerow([str(time.time()), perpetrator, quote])
     with open('quoteCount.txt', 'wb') as quoteWriter:
